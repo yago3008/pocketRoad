@@ -1,13 +1,13 @@
 from flask import Flask
 from controllers.user_controller import user_bp
 from controllers.follow_controller import follow_bp
+from controllers.cardex_controller import cardex_bp
 from config.database import db
 from models.user import User
 from werkzeug.security import generate_password_hash
 from flask_talisman import Talisman
 from flask_cors import CORS
 from config.general_config import APP_PORT
-from wafaHell import WafaHell
 
 def create_default_admin():
     admin = User.query.filter_by(username="admin").first()
@@ -23,7 +23,7 @@ def create_default_admin():
 def create_routes(app):
     app.register_blueprint(user_bp, url_prefix="/api")
     app.register_blueprint(follow_bp, url_prefix="/api")
-
+    app.register_blueprint(cardex_bp, url_prefix="/api")
 def create_app():
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"

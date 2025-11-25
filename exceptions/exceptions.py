@@ -21,3 +21,6 @@ class UnfollowedPerson(Exception):
 
 class InvalidFile(Exception):
     pass
+
+class ManualValidationIsNecessary(Exception):
+    pass
