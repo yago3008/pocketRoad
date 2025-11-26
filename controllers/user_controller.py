@@ -208,7 +208,7 @@ def list_users():
 # ---------------------------
 # OBTER UM USUÁRIO
 # ---------------------------
-@user_bp.route("/users/<int:user_id>", methods=["GET"])
+@user_bp.route("/users/<string:user_id>", methods=["GET"])
 @admin
 def get_user(user_id):
     try:
@@ -226,7 +226,7 @@ def get_user(user_id):
 # ---------------------------
 # DELETAR
 # ---------------------------
-@user_bp.route("/users/delete/<int:user_id>", methods=["POST"])
+@user_bp.route("/users/delete/<string:user_id>", methods=["POST"])
 @admin
 def delete_user(user_id):
     try:

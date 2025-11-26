@@ -24,3 +24,6 @@ class InvalidFile(Exception):
 
 class ManualValidationIsNecessary(Exception):
     pass
+
+class CarNotFound(Exception):
+    pass

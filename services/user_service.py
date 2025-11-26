@@ -135,8 +135,7 @@ class UserService:
                 user.password = generate_password_hash(new_password)
 
         if photo:
-            allowed = {"image/jpeg", "image/png", "image/webp"}
-            if photo.mimetype not in allowed:
+            if not UtilsService.is_image_ext_valid(photo):
                 raise InvalidFile("Formato de imagem inválido.")
             
             if user.photo_path and user.photo_path != "/static/users/default.png":
@@ -145,7 +144,7 @@ class UserService:
                     os.remove(old_path)
 
             os.makedirs("uploads/users", exist_ok=True)
-            filename = f"user_{user_id}.png"
+            filename = f"{user_id}.png"
             
             photo_path = os.path.join("uploads/users", filename)
             photo.save(photo_path)

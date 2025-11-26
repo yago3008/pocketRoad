@@ -8,11 +8,12 @@ from werkzeug.security import generate_password_hash
 from flask_talisman import Talisman
 from flask_cors import CORS
 from config.general_config import APP_PORT
-
+from config.general_config import ADMIN_UUID
 def create_default_admin():
     admin = User.query.filter_by(username="admin").first()
     if not admin:
         admin = User(
+            id=ADMIN_UUID,
             username="admin",
             password=generate_password_hash("admin"),
             email="yagomartins30@gmail.com"

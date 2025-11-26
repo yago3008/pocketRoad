@@ -57,7 +57,6 @@ def admin(f):
             return jsonify({"status":"error", "message":"Token inválido.", "data": None}), 401
 
         role = decoded.get("role")
-        print(role)
         if role != "admin":
             return jsonify({"status":"error", "message":"Acesso restrito.", "data": None}), 403
 

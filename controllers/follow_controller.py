@@ -42,7 +42,7 @@ def unfollow_user():
 # ---------------------------
 # FOLLOWERS DE UM USER
 # ---------------------------
-@follow_bp.route("/follow/followers/<int:followed_id>", methods=["GET"])
+@follow_bp.route("/follow/followers/<string:followed_id>", methods=["GET"])
 @secure
 def get_followers(followed_id):
     try:
@@ -54,7 +54,7 @@ def get_followers(followed_id):
 # ---------------------------
 # FOLLOWING DE UM USER
 # ---------------------------
-@follow_bp.route("/follow/following/<int:follower_id>", methods=["GET"])
+@follow_bp.route("/follow/following/<string:follower_id>", methods=["GET"])
 @secure
 def get_following(follower_id):
     try:

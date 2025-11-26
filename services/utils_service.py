@@ -2,13 +2,14 @@ import jwt
 from datetime import datetime, timedelta, timezone
 from config.jwt_config import SECRET_KEY
 from models.user import User
+from config.general_config import ADMIN_UUID
 
 class UtilsService:
 
     @staticmethod
     def generate_jwt(user_id, minutes=180):
         now = datetime.now(timezone.utc)   
-        role = "admin" if user_id == 1 else 'user'
+        role = "admin" if user_id == ADMIN_UUID else 'user'
         payload = {
             "user_id": user_id,
             "role": role, 
@@ -59,3 +60,10 @@ class UtilsService:
         model = model_and_year[:-4]
 
         return model, year
+    
+    @staticmethod
+    def is_image_ext_valid(photo):
+        allowed = {"image/jpeg", "image/png", "image/webp"}
+        if photo.mimetype not in allowed:
+            return False
+        return True

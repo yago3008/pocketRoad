@@ -32,7 +32,7 @@ def cardex_add():
 def cardex_remove():
     pass
 
-@cardex_bp.route("/cardex/<int:id>", methods=["POST"])
+@cardex_bp.route("/cardex/<string:id>", methods=["POST"])
 @secure
 def cardex_view(id):
     pass
