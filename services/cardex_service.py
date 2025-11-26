@@ -3,6 +3,7 @@ from models.cars import Car
 from config.database import db
 from services.utils_service import UtilsService
 from services.artificial_intelligence_service import AIService
+from services.car_service import CarService
 from exceptions.exceptions import (
     ManualValidationIsNecessary,
     InvalidFile
@@ -17,22 +18,31 @@ class CardexService:
             raise InvalidFile("Você precisa enviar pelo menos 1 imagem.")
         
         cardex = Cardex.query.filter_by(user_id=user_id).first()
+
         if not cardex:
             cardex = Cardex(user_id=user_id)
-        print(photos)
+
         for image in photos:
             results.append(AIService.predict_car(image))
-        print(results)
-        confidence_avg = sum(item["confidence"] for item in results) / len(results)
-        print(confidence_avg)
+
+        confidence_avg = UtilsService.get_confidence_avg(results)
+
+        print(results, confidence_avg)
+
+        car = CarService.create_car()
         if confidence_avg < 0.92:
             cardex.approved = False
-            return False
-            ##vai ter que mandar pra analise em /admin/analise
+            
         else:
+            model, year = UtilsService.parse_car_name(UtilsService.get_best_prediction(results))
+            car.model = model
+            car.year = year
             cardex.approved = True
-            return True
-            ## chamar funcao generica pra criar carro
+        
+        db.flush(car)
+        cardex.car = car.id
+        db.save(cardex)
+
 
         
         

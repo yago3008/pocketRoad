@@ -45,3 +45,17 @@ class UtilsService:
         result = isClause and not equalsClause
 
         return result
+    
+    @staticmethod
+    def get_confidence_avg(results):
+       return sum(item["confidence"] for item in results) / len(results)
+    
+    def get_best_prediction(results):
+        return max(results, key=lambda item: item["confidence"])["predicted_car"]
+
+    @staticmethod
+    def parse_car_name(model_and_year):
+        year = model_and_year[-4:]
+        model = model_and_year[:-4]
+
+        return model, year
