@@ -23,7 +23,6 @@ class UserService:
     def register_user(email, username, password):
         username_exists = User.query.filter_by(username=username).first()
         email_exists = User.query.filter_by(email=email).first()
-
         if username_exists:
             raise UserAlreadyExists("Usuário já existe.")
 
@@ -33,7 +32,7 @@ class UserService:
         hashed_pw = generate_password_hash(password)
         new_user = User(username=username, password=hashed_pw, email=email)
         db.save(new_user)
-
+        
         return new_user
 
     @staticmethod

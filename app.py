@@ -9,6 +9,7 @@ from flask_talisman import Talisman
 from flask_cors import CORS
 from config.general_config import APP_PORT
 from config.general_config import ADMIN_UUID
+from config.general_config import DB_PASSWORD
 def create_default_admin():
     admin = User.query.filter_by(username="admin").first()
     if not admin:
@@ -27,7 +28,7 @@ def create_routes(app):
     app.register_blueprint(cardex_bp, url_prefix="/api")
 def create_app():
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://admin:{DB_PASSWORD}@localhost/autodex"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
